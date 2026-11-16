@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.stmobileport.daggerfall">
+    <uses-sdk android:minSdkVersion="33" android:targetSdkVersion="35" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- only for an ARENA2 folder of the player's own outside the app's folder -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <application android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:allowBackup="false"
+        android:hardwareAccelerated="true" android:theme="@android:style/Theme.Material.NoActionBar">
+        <activity android:name=".MainActivity" android:exported="true" android:screenOrientation="sensorLandscape"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- the game in its own process: closing it ends it, the next launch starts clean -->
+        <activity android:name=".DaggerfallActivity" android:process=":game" android:exported="false"
+            android:screenOrientation="sensorLandscape" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" />
+    </application>
+</manifest>

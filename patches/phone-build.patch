@@ -1,0 +1,57 @@
+diff --git a/src/systems/phoneDefaults.js b/src/systems/phoneDefaults.js
+new file mode 100644
+index 00000000..a2265328
+--- /dev/null
++++ b/src/systems/phoneDefaults.js
+@@ -0,0 +1,31 @@
++// PHONE (Blizz4A's Android build, VITE_PHONE=1): first-run defaults for a phone. A mid-range phone's CPU spends most of
++// each frame in script, and these rows are the heavy optional visuals and ambient simulation; gameplay rows are left as
++// they are. Each stays a normal pref: the player turns any of them back on in Features.
++export const PHONE_PREF_DEFAULTS = Object.freeze({
++  landViewDistance: 3,          // Daggerfall's own radius (the row's classic)
++  renderScale: 0.75,            // the world drawn at 3/4 and shown full size; the HUD stays sharp
++  enhancedEnvironments: false,  // the classic sky and weather instead of the living dome
++  enhancedWater: false,
++  waterQuality: 'simple',
++  wetWorld: 'off',
++  enhancedLighting: false,
++  steadyShadows: false,
++  moddedLighting: 'off',
++  grassDensity: 0,
++  cloudQuality: 'lo',
++  groundSharpness: 'off',
++  realWindows: 'off',
++  windowLight: 'off',
++  weaponGlow: false,
++  floraSway: false,
++  windWisps: false,
++  ambientLife: false,
++  firstPersonLighting: false,
++  weatherEvents: false,
++  realForests: false,
++  roadVerges: false,
++  killFxOthers: 'near',
++  armoryOthers: 'near',
++  mwNpcBodies: 'off',
++  mwSpellEffects: false,
++});
+diff --git a/src/systems/uiPrefs.js b/src/systems/uiPrefs.js
+index f3bbcf14..b52ec04d 100644
+--- a/src/systems/uiPrefs.js
++++ b/src/systems/uiPrefs.js
+@@ -24,6 +24,7 @@ const PREF1_ADOPT_NEW_DEFAULT = Object.freeze(['lootRarity', 'enhancedAI']); //
+ import { appStorage } from './appStorage.js'; // DA1: the storage seam
+ import { onlineForcedPref } from './online/onlineLane.js'; // OL1: the online lane's forcing, read before the shelf
+ import { FEATURE_PREF_DEFAULTS } from './features.js'; // RF4: the port's own switches, declared once on their rows
++import { PHONE_PREF_DEFAULTS } from './phoneDefaults.js'; // PHONE: the Android build's lighter first-run defaults
+ import { isStoredTier } from './survival/difficulty.js'; // SURV-TIERS: what the survival key may hold (an import-free leaf)
+ import {
+   isStoredHorseCare,
+@@ -276,6 +277,7 @@ export const PREF_DEFAULTS = Object.freeze({
+   // (RA1/EE1, the AI, ECV1, WATER1, LV1, PERF1, LR1) is the row's note
+   // now. Adding a switch is one row; nothing here.
+   ...FEATURE_PREF_DEFAULTS,
++  ...(import.meta.env?.VITE_PHONE ? PHONE_PREF_DEFAULTS : {}), // PHONE: only in the Android build
+   textScale: 0, // 0 = normal, 1 = large (buys a whole scale step)
+   category: 'game',
+   open: {}, // "video:stored" -> true
